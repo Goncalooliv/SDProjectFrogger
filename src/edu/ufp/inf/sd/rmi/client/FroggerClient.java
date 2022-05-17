@@ -1,5 +1,6 @@
 package edu.ufp.inf.sd.rmi.client;
 
+import edu.ufp.inf.sd.rmi.frogger.Main;
 import edu.ufp.inf.sd.rmi.server.*;
 import util.rmisetup.SetupContextRMI;
 
@@ -7,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ public class FroggerClient {
 
     private static GameFactoryRI gameFactoryRI;
     private SubjectRI subjectRI;
+    private GameSessionRI gameSessionRI;
 
     private static String email;
     private static String password;
@@ -82,7 +85,7 @@ public class FroggerClient {
     private void playService() {
         try {
             autenticationMenu();
-
+            gameOptions(gameSessionRI);
 
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "going MAIL_TO_ADDR finish, bye. ;)");
         } catch (RemoteException ex) {
@@ -117,7 +120,7 @@ public class FroggerClient {
                 System.out.println("Password: ");
                 Scanner passwordInput = new Scanner(System.in);
                 password = passwordInput.next();
-                return gameFactoryRI.login(email, password);
+                return gameSessionRI = gameFactoryRI.login(email, password);
             }
             default -> {
                 System.out.println("Choose Something pelise");
@@ -134,7 +137,7 @@ public class FroggerClient {
 
         switch(userChoice){
             case "Create" -> {
-
+                gameCreation(gameSessionRI);
             }
             case "Join" -> {
 
@@ -153,12 +156,44 @@ public class FroggerClient {
 
         }
     }
-    /*public void checkRegister(User user) {
-        if(db.exists(email,password)) {
-            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User Registered with success");
-        } else {
-            Logger.getLogger(this.getClass().getName()).log(Level.INFO, "User not Registered");
+
+    public static Jogo gameCreation(GameSessionRI gameSessionRI) throws RemoteException{
+        Scanner dificuldade = new Scanner(System.in);
+        System.out.print("Chose the difficulty(Ez,Normal,Hard) : ");
+        String difficulty = dificuldade.next();
+        Scanner numero = new Scanner(System.in);
+        System.out.print("Number of Players : ");
+        int number = numero.nextInt();
+
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+        ObserverRI observerRI = new ObserverImpl(1);
+
+        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
+
+        Jogo jogo = gameSessionRI.createJogo(difficulty,observerRI);
+
+        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCC");
+        observerRI.setSubjectRI(jogo.getSubjectRI());
+
+        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+
+        if(jogo.getPlayerNumber() < number){
+            System.out.println("Nao tens amigos nao jogues .|. ");
         }
-    }*/
+
+        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
+
+        //Main main = new Main(jogo,observerRI);
+        //main.run();
+
+        return jogo;
+
+    }
+
+    public static void joinGame(GameSessionRI gameSessionRI) throws RemoteException{
+        System.out.println("Available Game Lobbies: ");
+        //ArrayList<Jogo> listaJogos = gameSessionRI.printFroggerGameList();
+
+    }
 
 }

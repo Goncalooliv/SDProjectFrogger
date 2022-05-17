@@ -4,6 +4,7 @@ import edu.ufp.inf.sd.rmi.client.ObserverRI;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +30,16 @@ public class GameSessionImpl extends UnicastRemoteObject implements GameSessionR
         jogo.getSubjectRI().attach(observerRI);
         return jogo;
     }
+
+    @Override
+    public Jogo joinJogo(int id, ObserverRI observerRI) throws RemoteException {
+        return null;
+    }
+
+    /*@Override
+    public ArrayList<Jogo> printFroggerGameList(){
+        return this.gameFactoryImpl.dbMockup.jogos;
+    }*/
 
 
     @Override

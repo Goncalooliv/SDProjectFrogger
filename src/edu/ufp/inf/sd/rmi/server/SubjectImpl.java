@@ -10,6 +10,7 @@ public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
     private State subjectState;
     private ArrayList<ObserverRI> observers;
 
+
     protected SubjectImpl() throws RemoteException {
         this.subjectState = new State("", "");
         this.observers = new ArrayList<ObserverRI>();
@@ -47,4 +48,5 @@ public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
             observer.update();
         }
     }
+
 }

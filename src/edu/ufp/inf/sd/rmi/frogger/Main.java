@@ -26,6 +26,9 @@
 package edu.ufp.inf.sd.rmi.frogger;
 
 import java.awt.event.KeyEvent;
+
+import edu.ufp.inf.sd.rmi.client.ObserverRI;
+import edu.ufp.inf.sd.rmi.server.Jogo;
 import jig.engine.ImageResource;
 import jig.engine.PaintableCanvas;
 import jig.engine.RenderingContext;
@@ -94,7 +97,7 @@ public class Main extends StaticScreenGame {
     /**
 	 * Initialize game objects
 	 */
-	public Main () {
+	public Main (Jogo jogo, ObserverRI observerRI) {
 		
 		super(WORLD_WIDTH, WORLD_HEIGHT, false);
 		
@@ -418,10 +421,5 @@ public class Main extends StaticScreenGame {
 			ui.render(rc);
 			break;		
 		}
-	}
-	
-	public static void main (String[] args) {
-		Main f = new Main();
-		f.run();
 	}
 }
