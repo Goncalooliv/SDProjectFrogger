@@ -10,7 +10,7 @@ public interface GameSessionRI extends Remote {
 
     void logout() throws RemoteException;
 
-    Jogo createJogo(String dificuldade, ObserverRI observerRI) throws RemoteException;
+    Jogo createJogo(Integer playerNumber, String dificuldade, ObserverRI observerRI) throws RemoteException;
     Jogo joinJogo(int id,ObserverRI observerRI) throws RemoteException;
     ArrayList<Jogo> printFroggerGameList() throws RemoteException;
 }

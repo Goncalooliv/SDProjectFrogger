@@ -50,7 +50,7 @@ public class DBMockup {
 
     public ArrayList<Jogo> printJogo(){
         for(Jogo jogo : jogos){
-            System.out.println(jogo.id);
+            System.out.println("ID do jogo: " + jogo.id);
         }
         return jogos;
     }
@@ -64,8 +64,8 @@ public class DBMockup {
         return null;
     }
 
-    public Jogo insert(String dificuldade, SubjectRI subjectRI) {
-        Jogo jogo = new Jogo(dificuldade,subjectRI);
+    public Jogo insert(Integer playerNumber, String dificuldade, SubjectRI subjectRI) {
+        Jogo jogo = new Jogo(playerNumber, dificuldade,subjectRI);
         jogos.add(jogo);
         return jogo;
     }
@@ -87,10 +87,11 @@ public class DBMockup {
         return jogos1;
     }
 
-    public Jogo selectGame(int numeroPlayers){
+    public Jogo selectGame(int idJogo){
+        System.out.println("num PLAYERS: " + idJogo);
         for(Jogo jogo : jogos){
-            if(jogo.getPlayerNumber() == numeroPlayers){
-                System.out.println("Numero de Players" + jogo.getPlayerNumber() + "Dificuldade" + jogo.getDificuldade());
+            if(jogo.getId() == idJogo){
+                System.out.println("Numero de Players" + jogo.getPlayerNumber() +  "Dificuldade" + jogo.getDificuldade());
                 return jogo;
             }
         }

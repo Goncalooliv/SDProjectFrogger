@@ -5,12 +5,19 @@ import java.io.Serializable;
 public class Jogo implements Serializable {
     public int id;
     private String dificuldade;
-    private int playerNumber;
+    public int playerNumber;
     private SubjectRI SubjectRI;
 
-    public Jogo(String dificuldade, SubjectRI subjectRI) {
+    public Jogo(int playerNumber, String dificuldade, SubjectRI subjectRI) {
+        id++;
         this.dificuldade = dificuldade;
-        this.playerNumber = 0;
+        this.playerNumber = playerNumber;
+        SubjectRI = subjectRI;
+    }
+
+    public Jogo(String dificuldade, SubjectRI subjectRI) {
+        id++;
+        this.dificuldade = dificuldade;
         SubjectRI = subjectRI;
     }
 
@@ -26,8 +33,9 @@ public class Jogo implements Serializable {
         return this.playerNumber;
     }
 
-    public void setPlayerNumber(int playerNumber){
+    public int setPlayerNumber(int playerNumber){
         this.playerNumber = playerNumber;
+        return playerNumber;
     }
 
     public String getDificuldade() {

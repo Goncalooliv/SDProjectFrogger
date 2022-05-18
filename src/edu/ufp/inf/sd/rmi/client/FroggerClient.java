@@ -172,14 +172,13 @@ public class FroggerClient {
         int number = numero.nextInt();
         System.out.println("numero de players: " + number);
 
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
         ObserverRI observerRI = new ObserverImpl(35);
 
-        System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
-        Jogo jogo = gameSessionRI.createJogo(difficulty,observerRI);
+        Jogo jogo = gameSessionRI.createJogo(number,difficulty,observerRI);
+        System.out.println("JOGADORES: " + jogo.playerNumber);
+        System.out.println("2222222222222222222: " + jogo.getPlayerNumber());
 
-        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCC");
 
         observerRI.setSubjectRI(jogo.getSubjectRI());
 
@@ -198,10 +197,11 @@ public class FroggerClient {
 
     }
 
-    public static void joinGame(GameSessionRI gameSessionRI) throws RemoteException{
+    public static Jogo joinGame(GameSessionRI gameSessionRI) throws RemoteException{
         System.out.println("Available Game Lobbies: ");
         ArrayList<Jogo> jogos = gameSessionRI.printFroggerGameList();
         for(Jogo jogo : jogos){
+            System.out.println("jogo: " + jogo.id);
             System.out.println(jogo.getId());
         }
 
@@ -215,9 +215,10 @@ public class FroggerClient {
 
         System.out.println("It's Showtime :)");
 
-        Main main = new Main();
-        main.run();
+        //Main main = new Main();
+        //main.run();
 
+        return jogo;
     }
 
 }
