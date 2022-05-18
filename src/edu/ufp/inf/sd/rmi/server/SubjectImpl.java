@@ -8,12 +8,16 @@ import java.util.ArrayList;
 
 public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
     private State subjectState;
-    private ArrayList<ObserverRI> observers;
+    public ArrayList<ObserverRI> observers;
 
 
     protected SubjectImpl() throws RemoteException {
         this.subjectState = new State("", "");
         this.observers = new ArrayList<ObserverRI>();
+    }
+
+    public ArrayList<ObserverRI> getObservers() throws RemoteException {
+        return observers;
     }
 
     protected SubjectImpl(State subjectState) throws RemoteException {

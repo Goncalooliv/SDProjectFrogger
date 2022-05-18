@@ -36,7 +36,6 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
 
     public void setSubjectRI(SubjectRI subjectRI) throws RemoteException{
         this.subjectRI = subjectRI;
-        this.subjectRI.attach(this);
     }
 
     @Override

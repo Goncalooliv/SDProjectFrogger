@@ -183,9 +183,8 @@ public class FroggerClient {
         observerRI.setSubjectRI(jogo.getSubjectRI());
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-
-        while(jogo.getPlayerNumber() != number){
-            State state = observerRI.getSubjectRI().getState();
+        System.out.println("Tamanho do Observer : " + observerRI.getSubjectRI().getObservers().size());
+        while(observerRI.getSubjectRI().getObservers().size() < 2){
         }
 
         System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
