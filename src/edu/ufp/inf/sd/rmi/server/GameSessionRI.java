@@ -4,6 +4,7 @@ import edu.ufp.inf.sd.rmi.client.ObserverRI;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 public interface GameSessionRI extends Remote {
 
@@ -11,5 +12,5 @@ public interface GameSessionRI extends Remote {
 
     Jogo createJogo(String dificuldade, ObserverRI observerRI) throws RemoteException;
     Jogo joinJogo(int id,ObserverRI observerRI) throws RemoteException;
-    //ArrayList<Jogo> printFroggerGameList();
+    ArrayList<Jogo> printFroggerGameList() throws RemoteException;
 }

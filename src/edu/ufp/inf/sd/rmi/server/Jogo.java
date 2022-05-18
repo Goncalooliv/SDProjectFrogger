@@ -3,7 +3,7 @@ package edu.ufp.inf.sd.rmi.server;
 import java.io.Serializable;
 
 public class Jogo implements Serializable {
-    private int id = 0;
+    public int id;
     private String dificuldade;
     private int playerNumber;
     private SubjectRI SubjectRI;
@@ -23,7 +23,7 @@ public class Jogo implements Serializable {
     }
 
     public int getPlayerNumber(){
-        return playerNumber;
+        return this.playerNumber;
     }
 
     public void setPlayerNumber(int playerNumber){

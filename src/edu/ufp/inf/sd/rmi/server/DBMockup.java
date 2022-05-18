@@ -1,5 +1,6 @@
 package edu.ufp.inf.sd.rmi.server;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -47,6 +48,13 @@ public class DBMockup {
         return false;
     }
 
+    public ArrayList<Jogo> printJogo(){
+        for(Jogo jogo : jogos){
+            System.out.println(jogo.id);
+        }
+        return jogos;
+    }
+
     public User getUser(String email) {
         for(User u : this.users) {
             if(u.getEmail().compareTo(email) == 0) {
@@ -56,11 +64,43 @@ public class DBMockup {
         return null;
     }
 
-    public Jogo insert(String dificuldade, SubjectRI subjectRI) throws RemoteException {
+    public Jogo insert(String dificuldade, SubjectRI subjectRI) {
         Jogo jogo = new Jogo(dificuldade,subjectRI);
         jogos.add(jogo);
         return jogo;
     }
+
+    public Jogo[] select(int numeroPlayers) {
+        Jogo[] jogos1;
+        ArrayList<Jogo> jogos2 = new ArrayList<>();
+        for (int i = 0; i < jogos.size(); i++) {
+            Jogo jogo = jogos.get(i);
+            System.out.println("DB - select(): Jogo[" + i + "] = Jogo com " + jogo.getPlayerNumber() + " jogadores");
+            if (jogo.getPlayerNumber() == numeroPlayers) {
+                jogos2.add(jogo);
+            }
+        }
+        jogos1 = new Jogo[jogos2.size()];
+        for (int i = 0; i < jogos2.size(); i++) {
+            jogos1[i] = jogos2.get(i);
+        }
+        return jogos1;
+    }
+
+    public Jogo selectGame(int numeroPlayers){
+        for(Jogo jogo : jogos){
+            if(jogo.getPlayerNumber() == numeroPlayers){
+                System.out.println("Numero de Players" + jogo.getPlayerNumber() + "Dificuldade" + jogo.getDificuldade());
+                return jogo;
+            }
+        }
+        return null;
+    }
+
+
+
+
+
 
 
 }
