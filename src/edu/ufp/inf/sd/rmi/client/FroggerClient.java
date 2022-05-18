@@ -181,7 +181,7 @@ public class FroggerClient {
         Jogo jogo = gameSessionRI.createJogo(difficulty,observerRI);
         //Jogo jogo = null;
         System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCC");
-        //observerRI.setSubjectRI(jogo.getSubjectRI());
+        observerRI.setSubjectRI(jogo.getSubjectRI());
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
