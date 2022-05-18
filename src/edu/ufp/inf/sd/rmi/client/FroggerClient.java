@@ -83,10 +83,7 @@ public class FroggerClient {
 
     private void playService() {
         try {
-            GameSessionRI gameSessionRI = null;
-            while(gameSessionRI == null){
-                gameSessionRI = autenticationMenu();
-            }
+            GameSessionRI gameSessionRI = autenticationMenu();
             gameOptions(gameSessionRI);
 
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "going MAIL_TO_ADDR finish, bye. ;)");
@@ -142,11 +139,13 @@ public class FroggerClient {
         String userChoice = userInput.next();
 
         switch(userChoice){
-            case "Create" -> {                Jogo jogo = gameCreation(gameSessionRI);
+            case "Create" -> {
+                gameCreation(gameSessionRI);
                 break;
             }
             case "Join" -> {
-
+                joinGame(gameSessionRI);
+                break;
             }
             case "List" -> {
 
@@ -167,7 +166,7 @@ public class FroggerClient {
         Scanner dificuldade = new Scanner(System.in);
         System.out.print("Chose the difficulty(Ez,Normal,Hardcore) : ");
         String difficulty = dificuldade.next();
-        System.out.println("dificuldade do jogo : " + difficulty);
+        System.out.println("Dificuldade Do Jogo : " + difficulty);
         Scanner numero = new Scanner(System.in);
         System.out.print("Number of Players : ");
         int number = numero.nextInt();
@@ -179,16 +178,16 @@ public class FroggerClient {
         System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
         Jogo jogo = gameSessionRI.createJogo(difficulty,observerRI);
-        //Jogo jogo = null;
+
         System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCC");
+
         observerRI.setSubjectRI(jogo.getSubjectRI());
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
-        /*while(jogo.getPlayerNumber() < number){
+        while(jogo.getPlayerNumber() != number){
             State state = observerRI.getSubjectRI().getState();
-            System.out.println("State : " + state);
-        }*/
+        }
 
         System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
@@ -201,7 +200,23 @@ public class FroggerClient {
 
     public static void joinGame(GameSessionRI gameSessionRI) throws RemoteException{
         System.out.println("Available Game Lobbies: ");
-        //ArrayList<Jogo> listaJogos = gameSessionRI.printFroggerGameList();
+        ArrayList<Jogo> jogos = gameSessionRI.printFroggerGameList();
+        for(Jogo jogo : jogos){
+            System.out.println(jogo.getId());
+        }
+
+        System.out.println("Choose a game primo: ");
+        Scanner userChoice = new Scanner(System.in);
+        int choice = userChoice.nextInt();
+
+        ObserverRI observerRI = new ObserverImpl(20);
+
+        Jogo jogo = gameSessionRI.joinJogo(choice, observerRI);
+
+        System.out.println("It's Showtime :)");
+
+        Main main = new Main();
+        main.run();
 
     }
 
