@@ -10,7 +10,7 @@ public interface ObserverRI extends Remote {
     void update() throws RemoteException;
     void setSubjectRI(SubjectRI subjectRI) throws RemoteException;
     SubjectRI getSubjectRI() throws RemoteException;
-    void setMain(Main main) throws RemoteException;
-    Main getMain() throws RemoteException;
+    //void setMain(Main main) throws RemoteException;
+    //Main getMain() throws RemoteException;
 
 }

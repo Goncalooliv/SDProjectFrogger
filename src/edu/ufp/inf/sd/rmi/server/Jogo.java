@@ -3,13 +3,12 @@ package edu.ufp.inf.sd.rmi.server;
 import java.io.Serializable;
 
 public class Jogo implements Serializable {
-    private int id;
+    private int id = 0;
     private String dificuldade;
     private int playerNumber;
     private SubjectRI SubjectRI;
 
     public Jogo(String dificuldade, SubjectRI subjectRI) {
-        id++;
         this.dificuldade = dificuldade;
         this.playerNumber = 0;
         SubjectRI = subjectRI;

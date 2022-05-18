@@ -97,7 +97,7 @@ public class Main extends StaticScreenGame {
     /**
 	 * Initialize game objects
 	 */
-	public Main (Jogo jogo, ObserverRI observerRI) {
+	public Main () {
 		
 		super(WORLD_WIDTH, WORLD_HEIGHT, false);
 		
@@ -421,5 +421,10 @@ public class Main extends StaticScreenGame {
 			ui.render(rc);
 			break;		
 		}
+	}
+
+	public static void main (String[] args) {
+		Main f = new Main();
+		f.run();
 	}
 }

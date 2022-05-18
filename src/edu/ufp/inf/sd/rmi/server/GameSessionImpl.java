@@ -13,11 +13,6 @@ public class GameSessionImpl extends UnicastRemoteObject implements GameSessionR
     GameFactoryImpl gameFactoryImpl;
     String email;
 
-    public GameSessionImpl(GameFactoryImpl gameFactoryImpl, String email) throws RemoteException{
-        super();
-        this.gameFactoryImpl = gameFactoryImpl;
-        this.email = email;
-    }
     public GameSessionImpl(GameFactoryImpl gameFactoryImpl) throws RemoteException{
         super();
         this.gameFactoryImpl = gameFactoryImpl;
@@ -25,9 +20,13 @@ public class GameSessionImpl extends UnicastRemoteObject implements GameSessionR
 
     @Override
     public Jogo createJogo(String dificuldade, ObserverRI observerRI) throws RemoteException {
+        System.out.println("linha 1");
         SubjectRI subjectRI = new SubjectImpl();
+        System.out.println("linha 2");
         Jogo jogo = gameFactoryImpl.dbMockup.insert(dificuldade,subjectRI);
+        System.out.println("linha 3");
         jogo.getSubjectRI().attach(observerRI);
+        System.out.println("linha 4");
         return jogo;
     }
 

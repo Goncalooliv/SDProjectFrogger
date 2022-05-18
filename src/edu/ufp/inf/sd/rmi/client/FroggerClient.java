@@ -9,6 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,11 +17,8 @@ import java.util.logging.Logger;
 public class FroggerClient {
 
     private SetupContextRMI contextRMI;
-    private DBMockup db;
 
     private static GameFactoryRI gameFactoryRI;
-    private SubjectRI subjectRI;
-    private GameSessionRI gameSessionRI;
 
     private static String email;
     private static String password;
@@ -56,6 +54,7 @@ public class FroggerClient {
             //Create a context for RMI setup
             contextRMI = new SetupContextRMI(this.getClass(), registryIP, registryPort, new String[]{serviceName});
         } catch (RemoteException e) {
+            System.out.println("REMOTE EXCEPTION");
             Logger.getLogger(FroggerClient.class.getName()).log(Level.SEVERE, null, e);
         }
     }
@@ -84,7 +83,10 @@ public class FroggerClient {
 
     private void playService() {
         try {
-            autenticationMenu();
+            GameSessionRI gameSessionRI = null;
+            while(gameSessionRI == null){
+                gameSessionRI = autenticationMenu();
+            }
             gameOptions(gameSessionRI);
 
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "going MAIL_TO_ADDR finish, bye. ;)");
@@ -99,16 +101,18 @@ public class FroggerClient {
         Scanner userInput = new Scanner(System.in);
         String userChoice = userInput.next();
         System.out.println("===========================================");
-        //System.out.println(userChoice);
+        System.out.println(userChoice);
         switch (userChoice) {
             case "Register" -> {
                 System.out.println("=====Register=====");
                 System.out.println("Email: ");
                 Scanner emailInput = new Scanner(System.in);
                 email = emailInput.next();
+                System.out.println(email);
                 System.out.println("Password: ");
                 Scanner passwordInput = new Scanner(System.in);
                 password = passwordInput.next();
+                System.out.println(password);
                 gameFactoryRI.register(email, password);
                 return autenticationMenu();
             }
@@ -117,10 +121,12 @@ public class FroggerClient {
                 System.out.println("Email: ");
                 Scanner emailInput = new Scanner(System.in);
                 email = emailInput.next();
+                System.out.println(email);
                 System.out.println("Password: ");
                 Scanner passwordInput = new Scanner(System.in);
                 password = passwordInput.next();
-                return gameSessionRI = gameFactoryRI.login(email, password);
+                System.out.println("Login: " + email);
+                return gameFactoryRI.login(email,password);
             }
             default -> {
                 System.out.println("Choose Something pelise");
@@ -136,8 +142,8 @@ public class FroggerClient {
         String userChoice = userInput.next();
 
         switch(userChoice){
-            case "Create" -> {
-                gameCreation(gameSessionRI);
+            case "Create" -> {                Jogo jogo = gameCreation(gameSessionRI);
+                break;
             }
             case "Join" -> {
 
@@ -157,34 +163,37 @@ public class FroggerClient {
         }
     }
 
-    public static Jogo gameCreation(GameSessionRI gameSessionRI) throws RemoteException{
+    private static Jogo gameCreation(GameSessionRI gameSessionRI) throws RemoteException{
         Scanner dificuldade = new Scanner(System.in);
-        System.out.print("Chose the difficulty(Ez,Normal,Hard) : ");
+        System.out.print("Chose the difficulty(Ez,Normal,Hardcore) : ");
         String difficulty = dificuldade.next();
+        System.out.println("dificuldade do jogo : " + difficulty);
         Scanner numero = new Scanner(System.in);
         System.out.print("Number of Players : ");
         int number = numero.nextInt();
+        System.out.println("numero de players: " + number);
 
         System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-        ObserverRI observerRI = new ObserverImpl(1);
+        ObserverRI observerRI = new ObserverImpl(35);
 
         System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBB");
 
         Jogo jogo = gameSessionRI.createJogo(difficulty,observerRI);
-
+        //Jogo jogo = null;
         System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCC");
-        observerRI.setSubjectRI(jogo.getSubjectRI());
+        //observerRI.setSubjectRI(jogo.getSubjectRI());
 
         System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 
-        if(jogo.getPlayerNumber() < number){
-            System.out.println("Nao tens amigos nao jogues .|. ");
-        }
+        /*while(jogo.getPlayerNumber() < number){
+            State state = observerRI.getSubjectRI().getState();
+            System.out.println("State : " + state);
+        }*/
 
         System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
 
-        //Main main = new Main(jogo,observerRI);
-        //main.run();
+        Main main = new Main();
+        main.run();
 
         return jogo;
 

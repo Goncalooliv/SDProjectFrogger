@@ -1,5 +1,6 @@
 package edu.ufp.inf.sd.rmi.server;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,12 +56,11 @@ public class DBMockup {
         return null;
     }
 
-    public Jogo insert(String dificuldade, SubjectRI subjectRI) {
+    public Jogo insert(String dificuldade, SubjectRI subjectRI) throws RemoteException {
         Jogo jogo = new Jogo(dificuldade,subjectRI);
         jogos.add(jogo);
         return jogo;
     }
-
 
 
 }

@@ -4,7 +4,6 @@ import edu.ufp.inf.sd.rmi.client.ObserverRI;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public interface GameSessionRI extends Remote {
 

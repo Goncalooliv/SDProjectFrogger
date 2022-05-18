@@ -13,14 +13,15 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
     protected SubjectRI subjectRI;
     private Main main;
 
-    protected ObserverImpl(SubjectRI subjectRI) throws RemoteException {
-        super();
-        //this.subjectRI = subjectRI;
-        //this.subjectRI.attach(this);
+    public ObserverImpl(int id) throws RemoteException{
+        this.id = id;
     }
 
-    public ObserverImpl(int id) throws RemoteException{
-        //super();
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,14 +44,14 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
         return subjectRI;
     }
 
-    @Override
+    /*@Override
     public void setMain(Main main) throws RemoteException {
         this.main = main;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public Main getMain() throws RemoteException {
         return main;
-    }
+    }*/
 
 }
