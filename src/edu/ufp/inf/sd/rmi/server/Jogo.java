@@ -9,7 +9,7 @@ public class Jogo implements Serializable {
     private SubjectRI SubjectRI;
 
     public Jogo(int playerNumber, String dificuldade, SubjectRI subjectRI) {
-        id++;
+        this.id++;
         this.dificuldade = dificuldade;
         this.playerNumber = playerNumber;
         SubjectRI = subjectRI;

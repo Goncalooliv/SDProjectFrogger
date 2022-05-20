@@ -29,8 +29,6 @@ public class GameSessionImpl extends UnicastRemoteObject implements GameSessionR
     @Override
     public Jogo joinJogo(int idJogo, ObserverRI observerRI) throws RemoteException {
         Jogo jogo = gameFactoryImpl.dbMockup.selectGame(idJogo);
-        System.out.println("1: " + jogo.getPlayerNumber());
-        System.out.println("2: " + jogo.getSubjectRI());
         jogo.getSubjectRI().attach(observerRI);
         return jogo;
     }

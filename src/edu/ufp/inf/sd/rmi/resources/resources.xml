@@ -1,11 +1,11 @@
 <resources>
 
     <spritesheet>
-        <imagesrc>frogger_sprites.png</imagesrc>
+        <imagesrc>frogger_sprites0.png</imagesrc>
         <framesrc>frogger.xml</framesrc>
     </spritesheet>
     <spritesheet>
-        <imagesrc>frogger_sprites2.png</imagesrc>
+        <imagesrc>frogger_sprites1.png</imagesrc>
         <framesrc>frogger.xml</framesrc>
     </spritesheet>
 

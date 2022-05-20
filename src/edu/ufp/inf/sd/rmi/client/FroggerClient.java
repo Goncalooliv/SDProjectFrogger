@@ -9,6 +9,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -148,10 +149,34 @@ public class FroggerClient {
                 break;
             }
             case "List" -> {
+                ArrayList<Jogo> jogos = gameSessionRI.printFroggerGameList();
+                for(Jogo jogo : jogos){
+                    System.out.println("jogo: " + jogo.id);
+                }
+                gameOptions(gameSessionRI);
 
             }
             case "Exit" -> {
+                System.out.println("Are you sure you want to leave (Y|N)?");
+                Scanner confirmation = new Scanner(System.in);
+                String confirmationString = confirmation.next();
+                switch(confirmationString.toUpperCase(Locale.ROOT)){
+                    case "Y" -> {
+                        System.out.println("Thank you for playing!!!!!");
+                        System.exit(0);
+                    }
+                    case "N" -> gameOptions(gameSessionRI);
 
+                }
+                if(confirmation.next().equalsIgnoreCase("Y")){
+                    System.out.println("Thank you for playing!!!!!");
+                    break;
+                }else if(confirmation.next().equalsIgnoreCase("N")){
+                    gameOptions(gameSessionRI);
+                }else if(!confirmation.next().equalsIgnoreCase("Y") || !confirmation.next().equalsIgnoreCase("N")){
+                    System.out.println("Only Y for Yes or N for No are possible to choose");
+
+                }
             }
             default -> {
                 System.out.println("Choose Something pelise");
@@ -172,24 +197,15 @@ public class FroggerClient {
         int number = numero.nextInt();
         System.out.println("numero de players: " + number);
 
-        ObserverRI observerRI = new ObserverImpl(35);
-
+        ObserverRI observerRI = new ObserverImpl(0);
 
         Jogo jogo = gameSessionRI.createJogo(number,difficulty,observerRI);
-        System.out.println("JOGADORES: " + jogo.playerNumber);
-        System.out.println("2222222222222222222: " + jogo.getPlayerNumber());
-
-
         observerRI.setSubjectRI(jogo.getSubjectRI());
 
-        System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDD");
-        System.out.println("Tamanho do Observer : " + observerRI.getSubjectRI().getObservers().size());
         while(observerRI.getSubjectRI().getObservers().size() < 2){
         }
 
-        System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFF");
-
-        Main main = new Main();
+        Main main = new Main(jogo,observerRI);
         main.run();
 
         return jogo;
@@ -201,21 +217,20 @@ public class FroggerClient {
         ArrayList<Jogo> jogos = gameSessionRI.printFroggerGameList();
         for(Jogo jogo : jogos){
             System.out.println("jogo: " + jogo.id);
-            System.out.println(jogo.getId());
         }
 
         System.out.println("Choose a game primo: ");
         Scanner userChoice = new Scanner(System.in);
         int choice = userChoice.nextInt();
 
-        ObserverRI observerRI = new ObserverImpl(20);
+        ObserverRI observerRI = new ObserverImpl(1);
 
         Jogo jogo = gameSessionRI.joinJogo(choice, observerRI);
 
         System.out.println("It's Showtime :)");
 
-        //Main main = new Main();
-        //main.run();
+        Main main2 = new Main(jogo,observerRI);
+        main2.run();
 
         return jogo;
     }

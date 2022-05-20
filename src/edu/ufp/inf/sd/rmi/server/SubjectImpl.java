@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
     private State subjectState;
-    public ArrayList<ObserverRI> observers;
+    public ArrayList<ObserverRI> observers = new ArrayList<>();
 
 
     protected SubjectImpl() throws RemoteException {
-        this.subjectState = new State("", "");
-        this.observers = new ArrayList<ObserverRI>();
+        this.subjectState = new State(0, "");
+        //this.observers = new ArrayList<>();
     }
 
     public ArrayList<ObserverRI> getObservers() throws RemoteException {
@@ -43,13 +43,13 @@ public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
 
     @Override
     public void setState(State state) throws RemoteException{
-        notifyAllObservers();
         this.subjectState = state;
+        notifyAllObservers(state);
     }
 
-    public void notifyAllObservers() throws RemoteException {
+    public void notifyAllObservers(State state) throws RemoteException {
         for (ObserverRI observer : observers) {
-            observer.update();
+            observer.update(state);
         }
     }
 

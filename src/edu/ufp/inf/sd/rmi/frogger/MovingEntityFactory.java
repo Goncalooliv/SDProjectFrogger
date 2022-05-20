@@ -54,12 +54,11 @@ public class MovingEntityFactory {
 	 * 
 	 * @param pos
 	 * @param v
-	 * @param rate
 	 */
 	public MovingEntityFactory(Vector2D pos, Vector2D v) {
 		position = pos;
 		velocity = v;
-		r = new Random(System.currentTimeMillis());
+		r = new Random(1);
 
 		creationRate[CAR]   = (int) Math.round(((Car.LENGTH) + padding + 32) / 
 				Math.abs(velocity.getX()));
@@ -127,7 +126,36 @@ public class MovingEntityFactory {
 	 * If traffic line is clear, send a faaast CopCar!
 	 * @return
 	 */
-	public MovingEntity buildVehicle() {
+
+	/*public MovingEntity buildVehicle(int chance){
+		MovingEntity m = buildBasicObject(CAR,60);
+		if(m != null && r.nextInt(100) < chance)
+			return new Truck(position, velocity);
+		if (m != null) {
+			if (Math.abs(velocity.getX()*copCarDelay) > Main.WORLD_WIDTH) {
+				copCarDelay = 0;
+				return new CopCar(position, velocity.scale(5));
+			}
+			copCarDelay = 0;
+		}
+		return m;
+	}*/
+
+	public MovingEntity buildVehicle(int chance){
+		MovingEntity m = buildBasicObject(CAR,75);
+		if(m != null && r.nextInt(100) < chance) {
+			return new Truck(position, velocity);
+		}
+		if(m != null){
+			if(Math.abs(velocity.getX()*copCarDelay) > Main.WORLD_WIDTH){
+				copCarDelay = 0;
+				return new CopCar(position, velocity.scale(5));
+			}
+			copCarDelay = 0;
+		}
+		return m;
+	}
+	/*public MovingEntity buildVehicle() {
 		
 		// Build slightly more cars that trucks
 		MovingEntity m = r.nextInt(100) < 80 ? buildBasicObject(CAR,50) : buildBasicObject(TRUCK,50);
@@ -137,14 +165,14 @@ public class MovingEntityFactory {
 			/* If the road line is clear, that is there are no cars or truck on it
 			 * then send in a high speed cop car
 			 */
-			if (Math.abs(velocity.getX()*copCarDelay) > Main.WORLD_WIDTH) {
+			/*if (Math.abs(velocity.getX()*copCarDelay) > Main.WORLD_WIDTH) {
 				copCarDelay = 0;
 				return new CopCar(position, velocity.scale(5));
 			}
 			copCarDelay = 0;
 		}
 		return m;
-	}
+	}*/
 	
 	public void update(final long deltaMs) {
 		updateMs += deltaMs;

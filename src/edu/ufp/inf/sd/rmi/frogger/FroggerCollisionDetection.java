@@ -24,6 +24,7 @@
  */
 
 package edu.ufp.inf.sd.rmi.frogger;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import jig.engine.physics.AbstractBodyLayer;
@@ -45,11 +46,11 @@ public class FroggerCollisionDetection  {
 		frogSphere = frog.getCollisionObjects().get(0);
 	}
 	
-	public void testCollision(AbstractBodyLayer<MovingEntity> l) {
+	public void testCollision(AbstractBodyLayer<MovingEntity> l) throws RemoteException {
 
 		if (!frog.isAlive)
 			return;
-		
+
 		Vector2D frogPos = frogSphere.getCenterPosition();
 		double dist2;
 		
@@ -122,7 +123,7 @@ public class FroggerCollisionDetection  {
 		return false;
 	}
 	
-	public void collide(MovingEntity m, CollisionObject s) {
+	public void collide(MovingEntity m, CollisionObject s) throws RemoteException {
 
 		if (m instanceof Truck || m instanceof Car || m instanceof CopCar) {
 			frog.die();
@@ -134,7 +135,8 @@ public class FroggerCollisionDetection  {
 			else
 				frog.follow(m);
 		}
-		
+
+		//ERRO DO LOG VER AQUI I GUESS
 		/* Follow the log */
 		if (m instanceof LongLog || m instanceof ShortLog) {
 			frog.follow(m);

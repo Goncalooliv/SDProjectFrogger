@@ -70,7 +70,7 @@ public class DBMockup {
         return jogo;
     }
 
-    public Jogo[] select(int numeroPlayers) {
+    /*public Jogo[] select(int numeroPlayers) {
         Jogo[] jogos1;
         ArrayList<Jogo> jogos2 = new ArrayList<>();
         for (int i = 0; i < jogos.size(); i++) {
@@ -85,10 +85,9 @@ public class DBMockup {
             jogos1[i] = jogos2.get(i);
         }
         return jogos1;
-    }
+    }*/
 
     public Jogo selectGame(int idJogo){
-        System.out.println("num PLAYERS: " + idJogo);
         for(Jogo jogo : jogos){
             if(jogo.getId() == idJogo){
                 System.out.println("Numero de Players" + jogo.getPlayerNumber() +  "Dificuldade" + jogo.getDificuldade());

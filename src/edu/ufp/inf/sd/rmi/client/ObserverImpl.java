@@ -17,7 +17,7 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
         this.id = id;
     }
 
-    public int getId() {
+    public int getId() throws RemoteException{
         return id;
     }
 
@@ -30,8 +30,9 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
     }
 
     @Override
-    public void update() throws RemoteException{
-        this.lastObserverState = subjectRI.getState();
+    public void update(State state) throws RemoteException{
+        //this.lastObserverState = state;
+        this.main.stateHandler(state);
     }
 
     public void setSubjectRI(SubjectRI subjectRI) throws RemoteException{
@@ -43,10 +44,10 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
         return subjectRI;
     }
 
-    /*@Override
+    @Override
     public void setMain(Main main) throws RemoteException {
         this.main = main;
-    }*/
+    }
 
     /*@Override
     public Main getMain() throws RemoteException {
