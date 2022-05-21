@@ -179,7 +179,7 @@ public class Main extends StaticScreenGame {
 
 		for(int j = 0; j < frogNumber; j++){
 			SPRITE_SHEET = RSC_PATH + "frogger_sprites" + j + ".png";
-			Frogger frogger = new Frogger(this, observerRI);
+			Frogger frogger = new Frogger(this, observerRI, froggerSpawn.get(j));
 			froggers.add(frogger);
 		}
 		/*while(i < frogNumber){
@@ -260,7 +260,7 @@ public class Main extends StaticScreenGame {
 		MovingEntity m;
 		/* Road traffic updates */
 		roadLine1.update(deltaMs);
-	    if ((m = roadLine1.buildVehicle(20)) != null) movingObjectsLayer.add(m);
+	    if ((m = roadLine1.buildVehicle(30)) != null) movingObjectsLayer.add(m);
 		
 		roadLine2.update(deltaMs);
 	    if ((m = roadLine2.buildVehicle(30)) != null) movingObjectsLayer.add(m);
@@ -269,10 +269,10 @@ public class Main extends StaticScreenGame {
 	    if ((m = roadLine3.buildVehicle(30)) != null) movingObjectsLayer.add(m);
 	    
 		roadLine4.update(deltaMs);
-	    if ((m = roadLine4.buildVehicle(25)) != null) movingObjectsLayer.add(m);
+	    if ((m = roadLine4.buildVehicle(30)) != null) movingObjectsLayer.add(m);
 
 		roadLine5.update(deltaMs);
-	    if ((m = roadLine5.buildVehicle(35)) != null) movingObjectsLayer.add(m);
+	    if ((m = roadLine5.buildVehicle(30)) != null) movingObjectsLayer.add(m);
 	    
 		
 		/* River traffic updates */

@@ -28,6 +28,7 @@ package edu.ufp.inf.sd.rmi.frogger;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.AffineTransform;
+import java.rmi.RemoteException;
 import java.util.List;
 
 import jig.engine.FontResource;
@@ -55,6 +56,7 @@ public class FroggerUI implements ViewableLayer {
 			new Font("Sans Serif", Font.BOLD, 14), Color.black, null );
 	
 	Main game;
+	Frogger frogger;
 	
 	public FroggerUI(final Main g) {
 		game = g;
@@ -68,22 +70,26 @@ public class FroggerUI implements ViewableLayer {
 		
 		font.render("Score: " + game.GameScore, rc, 
 				AffineTransform.getTranslateInstance(310, 7));
-		
-		if (game.GameLives > 0) {
-			int dx = 0;
-			
-			// if player has more than 10 lives, draw only 10 hearts
-			int maxHearts = game.GameLives;
-			if (maxHearts > 10)
-				maxHearts = 10;
-			else 
-				maxHearts = game.GameLives;
-			
-			for (int i = 0; i < maxHearts; i++ ) {
-				heart.get(0).render(rc, 
-						AffineTransform.getTranslateInstance(dx+8, 8));
-				dx = 16 * (i + 1);
+
+		try {
+			if (Main.froggers.get(game.observerRI.getId()).frogLives > 0) {
+				int dx = 0;
+
+				// if player has more than 10 lives, draw only 10 hearts
+				int maxHearts = Main.froggers.get(game.observerRI.getId()).frogLives;
+				if (maxHearts > 10)
+					maxHearts = 10;
+				else
+					maxHearts = Main.froggers.get(game.observerRI.getId()).frogLives;
+
+				for (int i = 0; i < maxHearts; i++ ) {
+					heart.get(0).render(rc,
+							AffineTransform.getTranslateInstance(dx+8, 8));
+					dx = 16 * (i + 1);
+				}
 			}
+		} catch (RemoteException e) {
+			e.printStackTrace();
 		}
 
 		font.render("L" + game.GameLevel, rc, 

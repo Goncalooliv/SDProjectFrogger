@@ -126,21 +126,6 @@ public class MovingEntityFactory {
 	 * If traffic line is clear, send a faaast CopCar!
 	 * @return
 	 */
-
-	/*public MovingEntity buildVehicle(int chance){
-		MovingEntity m = buildBasicObject(CAR,60);
-		if(m != null && r.nextInt(100) < chance)
-			return new Truck(position, velocity);
-		if (m != null) {
-			if (Math.abs(velocity.getX()*copCarDelay) > Main.WORLD_WIDTH) {
-				copCarDelay = 0;
-				return new CopCar(position, velocity.scale(5));
-			}
-			copCarDelay = 0;
-		}
-		return m;
-	}*/
-
 	public MovingEntity buildVehicle(int chance){
 		MovingEntity m = buildBasicObject(CAR,75);
 		if(m != null && r.nextInt(100) < chance) {
@@ -154,6 +139,7 @@ public class MovingEntityFactory {
 			copCarDelay = 0;
 		}
 		return m;
+
 	}
 	/*public MovingEntity buildVehicle() {
 		

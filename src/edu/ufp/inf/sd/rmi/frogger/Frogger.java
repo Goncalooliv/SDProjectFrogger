@@ -34,7 +34,6 @@ import java.rmi.RemoteException;
  * Main sprite in the game that a player can control
  *
  * @author vitaliy
- *
  */
 public class Frogger extends MovingEntity {
 
@@ -69,6 +68,8 @@ public class Frogger extends MovingEntity {
 
     public Main game;
     private ObserverRI observerRI;
+    public int frogLives = 5;
+    public Vector2D respawnPos;
 
     /**
      * Build frogger!
@@ -79,11 +80,13 @@ public class Frogger extends MovingEntity {
 		resetFrog();
 		collisionObjects.add(new CollisionObject(position));
 	}*/
-    public Frogger(Main g, ObserverRI observerRI) throws RemoteException {
+    public Frogger(Main g, ObserverRI observerRI, Vector2D respawnPos) throws RemoteException {
         super(Main.SPRITE_SHEET + "#frog");
         this.observerRI = observerRI;
         game = g;
-        resetFrog(observerRI);
+        //this.position = respawnPos;
+        this.respawnPos = respawnPos;
+        resetFrog(observerRI, this.respawnPos);
         collisionObjects.add(new CollisionObject(position));
     }
 
@@ -98,32 +101,14 @@ public class Frogger extends MovingEntity {
     /**
      * Reset the Frogger to default state and position
      */
-    public void resetFrog(ObserverRI observerRI) throws RemoteException {
-
-        if (observerRI.getId() == 0) {
-            isAlive = true;
-            isAnimating = false;
-            currentFrame = 0;
-            followObject = null;
-            //position = Main.FROGGER_START;
-
-            position = Main.froggerSpawn.get(0);
-
-            game.levelTimer = Main.DEFAULT_LEVEL_TIME;
-
-        } else if (observerRI.getId() == 1) {
-            isAlive = true;
-            isAnimating = false;
-            currentFrame = 0;
-            followObject = null;
-            //position = Main.FROGGER_START;
-			/*for(int i = 0; i < Main.froggerSpawn.size(); i++){
-				System.out.println("Posiçao : " + Main.froggerSpawn.get(i));
-			}*/
-            position = Main.froggerSpawn.get(1);
-
-            game.levelTimer = Main.DEFAULT_LEVEL_TIME;
-        }
+    public void resetFrog(ObserverRI observerRI, Vector2D respawnPos) throws RemoteException {
+        isAlive = true;
+        isAnimating = false;
+        currentFrame = 0;
+        followObject = null;
+        //position = Main.FROGGER_START;
+        position = respawnPos;
+        game.levelTimer = Main.DEFAULT_LEVEL_TIME;
     }
 
     /**
@@ -164,6 +149,7 @@ public class Frogger extends MovingEntity {
 
     /**
      * Short-cut for systems current time
+     *
      * @return
      */
     public long getTime() {
@@ -174,10 +160,10 @@ public class Frogger extends MovingEntity {
      * Initiate animation sequence into specified direction, given by
      *
      * @param dir - specifies direction to move
-     *
-     * The collision sphere of Frogger is automatically moved to the final
-     * position. The animation then lags behind by a few seconds(or frames).
-     * This resolves the positioning bugs when objects collide during the animation.
+     *            <p>
+     *            The collision sphere of Frogger is automatically moved to the final
+     *            position. The animation then lags behind by a few seconds(or frames).
+     *            This resolves the positioning bugs when objects collide during the animation.
      */
     public void move(Vector2D dir) {
         followObject = null;
@@ -241,6 +227,7 @@ public class Frogger extends MovingEntity {
 
     /**
      * Following a Tree Log on a river by getting it's velocity vector
+     *
      * @param deltaMs
      */
     public void updateFollow(long deltaMs) {
@@ -252,6 +239,7 @@ public class Frogger extends MovingEntity {
 
     /**
      * Setting a moving entity to follow
+     *
      * @param log
      */
     public void follow(MovingEntity log) {
@@ -261,6 +249,7 @@ public class Frogger extends MovingEntity {
 
     /**
      * Effect of a wind gust on Frogger
+     *
      * @param d
      */
     public void windReposition(Vector2D d) {
@@ -273,7 +262,6 @@ public class Frogger extends MovingEntity {
 
     /**
      * Effect of Heat Wave on Frogger
-     *
      */
     public void randomJump(final int rDir) {
         switch (rDir) {
@@ -303,7 +291,7 @@ public class Frogger extends MovingEntity {
             followObject = null;
             isAlive = false;
             currentFrame = 4;    // dead sprite
-            game.GameLives--;
+            this.frogLives--;
             hw_hasMoved = true;
         }
 
@@ -324,27 +312,32 @@ public class Frogger extends MovingEntity {
                 game.GameLives++;
             }
             g.reached();
-            resetFrog(observerRI);
+            resetFrog(observerRI,respawnPos);
         } else {
             setPosition(g.getPosition());
         }
     }
 
     public void update(final long deltaMs) {
-        if (game.GameLives <= 0)
+
+        if (this.frogLives <= 0) {
             return;
+        }
 
         // if dead, stay dead for 2 seconds.
         if (!isAlive && timeOfDeath + 2000 < System.currentTimeMillis()) {
             try {
-                resetFrog(observerRI);
+                resetFrog(observerRI, respawnPos);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
+
         }
 
         updateAnimation();
+
         updateFollow(deltaMs);
+
         setFrame(currentFrame);
 
         // Level timer stuff
@@ -354,7 +347,9 @@ public class Frogger extends MovingEntity {
             game.levelTimer--;
         }
 
-        if (game.levelTimer <= 0)
+        if (game.levelTimer <= 0) {
             die();
+
+        }
     }
 }
