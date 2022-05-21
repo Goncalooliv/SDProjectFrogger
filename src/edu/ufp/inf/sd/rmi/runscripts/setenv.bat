@@ -12,10 +12,10 @@
 
 @REM ======================== CHANGE BELOW ACCORDING YOUR PROJECT and PC SETTINGS ========================
 @REM ==== PC STUFF ====
-@Set USERNAME=diogo
+@Set USERNAME=Baguetes
 
 @Set WORKDRIVE=C
-@Set JDK=C:\Users\diogo\.jdks\openjdk-15.0.2
+@Set JDK=C:\Users\Baguetes\.jdks\openjdk-15.0.2
 @REM These vars will be used to check the output folder (whereto classes are generated)
 @SET NETBEANS=NetBeans
 @SET INTELLIJ=IntelliJ
@@ -24,7 +24,7 @@
 
 @REM ==== JAVA NAMING STUFF ====
 @Set JAVAPROJ_NAME=SDProjectFrogger
-@set JAVAPROJ=C:\Users\diogo\IdeaProjects\SDProjectFrogger
+@set JAVAPROJ=C:\Users\Baguetes\IdeaProjects\SDProjectFrogger
 @Set PACKAGE=rmi
 @Set PACKAGE_PREFIX=edu.ufp.inf.sd
 @Set PACKAGE_PREFIX_FOLDERS=edu/ufp/inf/sd
@@ -87,7 +87,7 @@ IF "%CURRENT_IDE%"=="%INTELLIJ%" (
 @set JAVAPROJ_DIST_FOLDER=%JAVAPROJ%\%JAVAPROJ_DIST%
 @set JAVAPROJ_JAR_FILE=%JAVAPROJ_NAME%.jar
 
-@set CLASSPATH=.;%JAVAPROG_CLASSES_FOLDER%;C:\Users\diogo\IdeaProjects\SDProjectFrogger\lib\jig-1.7.5.jar;C:\Users\diogo\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jogg-0.0.7.jar;C:\Users\diogo\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jorbis-0.0.15.jar;C:\Users\diogo\IdeaProjects\SDProjectFrogger\lib\ogg-spi\tritonus_jorbis-0.3.6.jar
+@set CLASSPATH=.;%JAVAPROG_CLASSES_FOLDER%;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jig-1.7.5.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jogg-0.0.7.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jorbis-0.0.15.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\tritonus_jorbis-0.3.6.jar
 @REM @set CLASSPATH=.;%JAVAPROJ_DIST_FOLDER%/%JAVAPROJ_JAR_FILE%.jar
 
 @Set ABSPATH2CLASSES=%JAVAPROJ%\%JAVAPROJ_CLASSES%
