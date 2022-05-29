@@ -48,6 +48,10 @@ public class DBMockup {
         return false;
     }
 
+    /**
+     * Imprime os jogos disponiveis
+     * @return
+     */
     public ArrayList<Jogo> printJogo(){
         for(Jogo jogo : jogos){
             System.out.println("ID do jogo: " + jogo.id);
@@ -64,6 +68,13 @@ public class DBMockup {
         return null;
     }
 
+    /**
+     * Insere o jogo criado no array de jogos
+     * @param playerNumber numero de jogadores que aquele jogo pretende ter
+     * @param dificuldade que o jogo terá
+     * @param subjectRI
+     * @return
+     */
     public Jogo insert(Integer playerNumber, String dificuldade, SubjectRI subjectRI) {
         Jogo jogo = new Jogo(playerNumber, dificuldade,subjectRI);
         jogos.add(jogo);
@@ -87,6 +98,11 @@ public class DBMockup {
         return jogos1;
     }*/
 
+    /**
+     * Percorre o array de jogos e se encontrar o id introduzido imprime a info desse jogo
+     * @param idJogo
+     * @return
+     */
     public Jogo selectGame(int idJogo){
         for(Jogo jogo : jogos){
             if(jogo.getId() == idJogo){

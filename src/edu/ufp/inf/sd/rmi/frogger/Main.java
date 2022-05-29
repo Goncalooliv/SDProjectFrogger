@@ -97,7 +97,7 @@ public class Main extends StaticScreenGame {
     static final int GAME_INSTRUCTIONS = 3;
     static final int GAME_OVER         = 4;
     
-	protected int GameState = GAME_PLAY;
+	protected int GameState = GAME_INTRO;
 	protected int GameLevel = STARTING_LEVEL;
 	
     public int GameLives    = FROGGER_LIVES;

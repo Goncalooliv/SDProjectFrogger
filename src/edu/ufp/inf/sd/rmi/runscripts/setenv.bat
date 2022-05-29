@@ -87,7 +87,7 @@ IF "%CURRENT_IDE%"=="%INTELLIJ%" (
 @set JAVAPROJ_DIST_FOLDER=%JAVAPROJ%\%JAVAPROJ_DIST%
 @set JAVAPROJ_JAR_FILE=%JAVAPROJ_NAME%.jar
 
-@set CLASSPATH=.;%JAVAPROG_CLASSES_FOLDER%;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jig-1.7.5.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jogg-0.0.7.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jorbis-0.0.15.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\tritonus_jorbis-0.3.6.jar
+@set CLASSPATH=.;%JAVAPROG_CLASSES_FOLDER%;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jig-1.7.5.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jogg-0.0.7.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\jorbis-0.0.15.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\ogg-spi\tritonus_jorbis-0.3.6.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jackson-annotations-2.13.2.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jackson-core-2.13.2.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\jackson-databind-2.13.2.jar;C:\Users\Baguetes\IdeaProjects\SDProjectFrogger\lib\java-jwt-3.19.0.jar
 @REM @set CLASSPATH=.;%JAVAPROJ_DIST_FOLDER%/%JAVAPROJ_JAR_FILE%.jar
 
 @Set ABSPATH2CLASSES=%JAVAPROJ%\%JAVAPROJ_CLASSES%

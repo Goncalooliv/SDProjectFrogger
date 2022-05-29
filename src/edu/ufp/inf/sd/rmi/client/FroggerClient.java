@@ -1,5 +1,8 @@
 package edu.ufp.inf.sd.rmi.client;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 import edu.ufp.inf.sd.rmi.frogger.Main;
 import edu.ufp.inf.sd.rmi.server.*;
 import util.rmisetup.SetupContextRMI;
@@ -93,6 +96,11 @@ public class FroggerClient {
         }
     }
 
+    /**
+     * Metodo para efetuar o registo / login
+     * @return
+     * @throws RemoteException
+     */
     public GameSessionRI autenticationMenu() throws RemoteException {
         System.out.println("Register) \nLogin) ");
         System.out.print("Input: ");
@@ -125,6 +133,7 @@ public class FroggerClient {
                 password = passwordInput.next();
                 System.out.println("Login: " + email);
                 return gameFactoryRI.login(email,password);
+
             }
             default -> {
                 System.out.println("Choose Something pelise");
@@ -133,6 +142,11 @@ public class FroggerClient {
         }
     }
 
+    /**
+     * Menu de jogo com as diferentes opções (Criar jogo, Juntar, Listar, Exit)
+     * @param gameSessionRI
+     * @throws RemoteException
+     */
     public void gameOptions(GameSessionRI gameSessionRI) throws RemoteException{
         System.out.println("Create Game) \nJoin Game) \nList Games) \nExit)");
         System.out.print("Input: ");
@@ -187,6 +201,12 @@ public class FroggerClient {
         }
     }
 
+    /**
+     * Menu usado para a criação do jogo (introduzir a dificuldade, numero de players, etc)
+     * @param gameSessionRI
+     * @return
+     * @throws RemoteException
+     */
     private static Jogo gameCreation(GameSessionRI gameSessionRI) throws RemoteException{
         Scanner dificuldade = new Scanner(System.in);
         System.out.print("Chose the difficulty(Ez,Normal,Hardcore) : ");
@@ -212,6 +232,13 @@ public class FroggerClient {
 
     }
 
+    /**
+     * Metodo usado quando a opção de "Join Game" é escolhida
+     * Lista os jogos disponiveis, cria um observer e dá attach do player ao jogo
+     * @param gameSessionRI
+     * @return
+     * @throws RemoteException
+     */
     public static Jogo joinGame(GameSessionRI gameSessionRI) throws RemoteException{
         System.out.println("Available Game Lobbies: ");
         ArrayList<Jogo> jogos = gameSessionRI.printFroggerGameList();
